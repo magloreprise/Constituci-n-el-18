@@ -56,7 +56,6 @@ capas.creditos.addLayer(
         - Biblioteca Nacional de Uruguay<br>
         - Constitución de 1918 (archivo PDF)<br>
         <u>Desarrollado por</u>:<br>
-        [Tu nombre o equipo]
     `)
 );
 capas.creditos.addLayer(
