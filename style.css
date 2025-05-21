@@ -1,23 +1,39 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #f0f0f0;
+    background: linear-gradient(to bottom, #eafaf1, #f0f0f0);
     margin: 0;
     padding: 20px;
 }
+
 h1 {
     color: #2c3e50;
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+    padding: 15px;
+    margin: 0 0 10px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 1000;
 }
+
 #map {
     width: 80%;
     height: 500px;
     margin: 0 auto;
     border: 3px solid #3498db;
     border-radius: 10px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
 }
 
 #controls {
-    margin: 20px;
+    margin: 20px auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 800px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
@@ -29,16 +45,22 @@ h1 {
     margin: 5px;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 #controls button:hover {
     background-color: #2980b9;
+    transform: scale(1.05);
 }
 
-#controls button.creditos {
-    background-color: #27ae60;  /* Verde para distinguirlo */
+#controls button.creditos,
+#controls button:nth-child(4) {
+    background-color: #27ae60; /* Verde para Créditos */
 }
 
-#controls button:nth-child(4) {  /* Cuarto botón (créditos) */
-    background-color: #27ae60; /* Verde */
+audio {
+    width: 100%;
+    max-width: 400px;
+    margin: 10px auto;
+    display: block;
 }
