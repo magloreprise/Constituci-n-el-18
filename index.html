@@ -2,11 +2,13 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mapa Constitución 1918</title>
   
   <!-- Fuente Inter -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
+  <!-- Estilos externos -->
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
@@ -28,6 +30,7 @@
     .container {
       display: flex;
       width: 100%;
+      flex-wrap: wrap;
     }
 
     .vertical-timeline {
@@ -108,30 +111,33 @@
   </style>
 </head>
 <body>
-  <h1>Mapa Interactivo: Constitución de Uruguay (1918)</h1>
-  
-  <div class="container">
-    <div class="vertical-timeline">
-      <h2>Línea de tiempo (1870-1918)</h2>
-      <ul>
-        <li><strong>1830</strong>Primer constitución</li>
-        <li><strong>1830-1904</strong>Guerras Civiles</li>
-        <li><strong>1903-1915</strong>Reformas de Batlle</li>
-        <li><strong>1917</strong>Plebiscito</li>
-        <li><strong>1918</strong>Aprobación en el Parlamento de la nueva constitución</li>
-      </ul>
-    </div>
+  <main>
+    <h1>Mapa Interactivo: Constitución de Uruguay (1918)</h1>
     
-    <div id="map"></div>
-  </div>
+    <div class="container">
+      <section class="vertical-timeline" aria-label="Línea de tiempo histórica">
+        <h2>Línea de tiempo (1870-1918)</h2>
+        <ul>
+          <li><strong>1830</strong>Primera constitución</li>
+          <li><strong>1830-1904</strong>Guerras Civiles</li>
+          <li><strong>1903-1915</strong>Reformas de Batlle</li>
+          <li><strong>1917</strong>Plebiscito</li>
+          <li><strong>1918</strong>Aprobación en el Parlamento de la nueva constitución</li>
+        </ul>
+      </section>
+      
+      <div id="map" aria-label="Mapa interactivo"></div>
+    </div>
 
-  <div id="controls">
-    <button onclick="mostrarCapa('antecedentes')">Antecedentes</button>
-    <button onclick="mostrarCapa('constitucion')">Constitución 1918</button>
-    <button onclick="mostrarCapa('repercusiones')">Repercusiones</button>
-    <button onclick="mostrarCapa('creditos')">Créditos</button>
-  </div>
+    <section id="controls" aria-label="Controles de capas del mapa">
+      <button onclick="mostrarCapa('antecedentes')" aria-label="Mostrar antecedentes">Antecedentes</button>
+      <button onclick="mostrarCapa('constitucion')" aria-label="Mostrar Constitución 1918">Constitución 1918</button>
+      <button onclick="mostrarCapa('repercusiones')" aria-label="Mostrar repercusiones">Repercusiones</button>
+      <button onclick="mostrarCapa('creditos')" aria-label="Mostrar créditos">Créditos</button>
+    </section>
+  </main>
 
+  <!-- Scripts -->
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="script.js"></script>
 </body>
