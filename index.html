@@ -3,142 +3,176 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mapa Constitución 1918</title>
-  
-  <!-- Fuente Inter -->
+  <title>Mapa Constitución Uruguay 1918</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-
-  <!-- Estilos externos -->
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
   <style>
     body {
       font-family: 'Inter', sans-serif;
       margin: 0;
+      padding: 0;
       background-color: #f0f2f5;
       color: #333;
     }
-
+    
     h1 {
       text-align: center;
-      margin-top: 20px;
-      font-weight: 600;
-      color: #2c3e50;
+      padding: 15px;
+      margin: 0;
+      font-size: 1.3rem;
+      background-color: #2c3e50;
+      color: white;
     }
-
-    .container {
+    
+    .main-container {
       display: flex;
-      width: 100%;
-      flex-wrap: wrap;
+      flex-direction: column;
+      height: calc(100vh - 56px);
     }
-
+    
+    .map-container {
+      display: flex;
+      flex: 1;
+    }
+    
     .vertical-timeline {
       width: 250px;
-      padding: 20px;
-      background-color: #f5f5f5;
+      padding: 15px;
+      background: #f5f5f5;
+      overflow-y: auto;
       border-right: 1px solid #ddd;
-      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-      border-radius: 8px 0 0 8px;
     }
-
-    .vertical-timeline h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .vertical-timeline ul {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-      position: relative;
-    }
-
-    .vertical-timeline ul::before {
-      content: '';
-      position: absolute;
-      left: 15px;
-      top: 0;
-      bottom: 0;
-      width: 4px;
-      background: #4CAF50;
-      z-index: 0;
-    }
-
-    .vertical-timeline li {
-      padding: 10px 15px;
-      margin-bottom: 15px;
-      background-color: #fff;
-      border-left: 4px solid #4CAF50;
-      position: relative;
-      border-radius: 4px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      z-index: 1;
-    }
-
-    .vertical-timeline li strong {
-      display: block;
-      margin-bottom: 5px;
-    }
-
+    
     #map {
       flex: 1;
-      height: 600px;
-      border-radius: 0 8px 8px 0;
-      box-shadow: inset 0 0 3px rgba(0,0,0,0.1);
+      min-height: 300px;
     }
-
+    
     #controls {
-      margin-top: 20px;
-      text-align: center;
+      display: flex;
+      overflow-x: auto;
+      padding: 10px;
+      background: #f5f5f5;
+      border-top: 1px solid #ddd;
+      gap: 8px;
     }
-
+    
     #controls button {
-      margin: 5px;
-      padding: 8px 15px;
-      background-color: #4CAF50;
+      flex: 1;
+      min-width: 120px;
+      padding: 10px;
+      background: #4CAF50;
       color: white;
       border: none;
       border-radius: 4px;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
     }
 
-    #controls button:hover {
-      background-color: #388e3c;
-      transform: scale(1.05);
+    /* Estilos para móviles */
+    @media (max-width: 768px) {
+      .map-container {
+        flex-direction: column;
+      }
+      
+      .vertical-timeline {
+        width: auto;
+        height: 150px;
+        overflow-x: auto;
+        white-space: nowrap;
+        display: flex;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+      }
+      
+      .vertical-timeline ul {
+        display: flex;
+        padding: 0;
+        margin: 0;
+      }
+      
+      .vertical-timeline li {
+        display: inline-block;
+        width: 200px;
+        margin-right: 10px;
+        white-space: normal;
+      }
+      
+      #map {
+        height: 60vh;
+      }
     }
   </style>
 </head>
 <body>
-  <main>
-    <h1>Mapa Interactivo: Constitución de Uruguay (1918)</h1>
-    
-    <div class="container">
-      <section class="vertical-timeline" aria-label="Línea de tiempo histórica">
-        <h2>Línea de tiempo (1870-1918)</h2>
-        <ul>
-          <li><strong>1830</strong>Primera constitución</li>
-          <li><strong>1830-1904</strong>Guerras Civiles</li>
-          <li><strong>1903-1915</strong>Reformas de Batlle</li>
-          <li><strong>1917</strong>Plebiscito</li>
-          <li><strong>1918</strong>Aprobación en el Parlamento de la nueva constitución</li>
+  <h1>Mapa Interactivo: Constitución de Uruguay (1918)</h1>
+  
+  <div class="main-container">
+    <div class="map-container">
+      <!-- Timeline vertical -->
+      <div class="vertical-timeline">
+        <h3 style="margin-top: 0; color: #2c3e50;">Línea de tiempo</h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="margin-bottom: 15px; padding: 10px; background: white; border-left: 4px solid #4CAF50; border-radius: 4px;">
+            <strong>1830-1904</strong>
+            <p style="margin: 5px 0 0; font-size: 0.9rem;">Guerras Civiles</p>
+          </li>
+          <li style="margin-bottom: 15px; padding: 10px; background: white; border-left: 4px solid #4CAF50; border-radius: 4px;">
+            <strong>1903-1915</strong>
+            <p style="margin: 5px 0 0; font-size: 0.9rem;">Reformas de Batlle</p>
+          </li>
+          <li style="margin-bottom: 15px; padding: 10px; background: white; border-left: 4px solid #4CAF50; border-radius: 4px;">
+            <strong>1917</strong>
+            <p style="margin: 5px 0 0; font-size: 0.9rem;">Plebiscito</p>
+          </li>
+          <li style="margin-bottom: 15px; padding: 10px; background: white; border-left: 4px solid #4CAF50; border-radius: 4px;">
+            <strong>1918</strong>
+            <p style="margin: 5px 0 0; font-size: 0.9rem;">Aprobación Constitución</p>
+          </li>
         </ul>
-      </section>
+      </div>
       
-      <div id="map" aria-label="Mapa interactivo"></div>
+      <!-- Mapa -->
+      <div id="map"></div>
     </div>
+    
+    <!-- Controles -->
+    <div id="controls">
+      <button onclick="mostrarCapa('antecedentes')">Antecedentes</button>
+      <button onclick="mostrarCapa('constitucion')">Constitución 1918</button>
+      <button onclick="mostrarCapa('repercusiones')">Repercusiones</button>
+      <button onclick="mostrarCapa('creditos')">Créditos</button>
+    </div>
+  </div>
 
-    <section id="controls" aria-label="Controles de capas del mapa">
-      <button onclick="mostrarCapa('antecedentes')" aria-label="Mostrar antecedentes">Antecedentes</button>
-      <button onclick="mostrarCapa('constitucion')" aria-label="Mostrar Constitución 1918">Constitución 1918</button>
-      <button onclick="mostrarCapa('repercusiones')" aria-label="Mostrar repercusiones">Repercusiones</button>
-      <button onclick="mostrarCapa('creditos')" aria-label="Mostrar créditos">Créditos</button>
-    </section>
-  </main>
-
-  <!-- Scripts -->
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <script src="script.js"></script>
+  <script>
+    // Inicialización adicional para asegurar compatibilidad
+    document.addEventListener('DOMContentLoaded', function() {
+      // Tu script.js ya inicializa el mapa, pero añadimos esto por si acaso
+      if(!window.map) {
+        window.map = L.map('map').setView([-32.5, -56], 6.2);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap'
+        }).addTo(map);
+      }
+      
+      // Asegurar que los botones funcionen
+      window.mostrarCapa = function(capaSeleccionada) {
+        Object.keys(capas).forEach(capa => {
+          map.removeLayer(capas[capa]);
+        });
+        capas[capaSeleccionada].addTo(map);
+        
+        // Centrar mapa en Soriano para créditos
+        if(capaSeleccionada === 'creditos') {
+          map.setView([-33.0, -58.5], 10);
+        }
+      };
+    });
+  </script>
 </body>
 </html>
