@@ -2,46 +2,55 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Mapa Constitución 1918</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa Constitución Uruguay 1918</title>
   
   <!-- Fuente Inter -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
   <style>
     body {
       font-family: 'Inter', sans-serif;
       margin: 0;
+      padding: 0;
       background-color: #f0f2f5;
       color: #333;
+      line-height: 1.6;
     }
 
     h1 {
       text-align: center;
-      margin-top: 20px;
+      margin: 20px 0;
       font-weight: 600;
       color: #2c3e50;
+      font-size: 2rem;
     }
 
     .container {
       display: flex;
-      width: 100%;
+      width: 95%;
+      max-width: 1200px;
+      margin: 0 auto;
+      min-height: 70vh;
     }
 
     .vertical-timeline {
-      width: 250px;
+      width: 280px;
       padding: 20px;
       background-color: #f5f5f5;
       border-right: 1px solid #ddd;
       box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
       border-radius: 8px 0 0 8px;
+      overflow-y: auto;
     }
 
     .vertical-timeline h2 {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
+      color: #2c3e50;
+      font-size: 1.3rem;
     }
 
     .vertical-timeline ul {
@@ -63,7 +72,7 @@
     }
 
     .vertical-timeline li {
-      padding: 10px 15px;
+      padding: 12px 15px;
       margin-bottom: 15px;
       background-color: #fff;
       border-left: 4px solid #4CAF50;
@@ -71,11 +80,17 @@
       border-radius: 4px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       z-index: 1;
+      transition: transform 0.2s ease;
+    }
+
+    .vertical-timeline li:hover {
+      transform: translateX(5px);
     }
 
     .vertical-timeline li strong {
       display: block;
       margin-bottom: 5px;
+      color: #2c3e50;
     }
 
     #map {
@@ -86,24 +101,43 @@
     }
 
     #controls {
-      margin-top: 20px;
+      margin: 25px auto;
       text-align: center;
+      max-width: 1200px;
     }
 
     #controls button {
-      margin: 5px;
-      padding: 8px 15px;
+      margin: 8px;
+      padding: 10px 20px;
       background-color: #4CAF50;
       color: white;
       border: none;
-      border-radius: 4px;
+      border-radius: 6px;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      transition: all 0.3s ease;
     }
 
     #controls button:hover {
       background-color: #388e3c;
       transform: scale(1.05);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .vertical-timeline {
+        width: auto;
+        border-right: none;
+        border-radius: 8px 8px 0 0;
+      }
+      #map {
+        height: 400px;
+        border-radius: 0 0 8px 8px;
+      }
     }
   </style>
 </head>
@@ -114,11 +148,11 @@
     <div class="vertical-timeline">
       <h2>Línea de tiempo (1870-1918)</h2>
       <ul>
-        <li><strong>1830</strong>Primer constitución</li>
-        <li><strong>1830-1904</strong>Guerras Civiles</li>
-        <li><strong>1903-1915</strong>Reformas de Batlle</li>
-        <li><strong>1917</strong>Plebiscito</li>
-        <li><strong>1918</strong>Aprobación en el Parlamento de la nueva constitución</li>
+        <li><strong>1830</strong> Primera constitución</li>
+        <li><strong>1830-1904</strong> Guerras Civiles</li>
+        <li><strong>1903-1915</strong> Reformas de Batlle</li>
+        <li><strong>1917</strong> Plebiscito constitucional</li>
+        <li><strong>1918</strong> Aprobación en el Parlamento de la nueva constitución</li>
       </ul>
     </div>
     
@@ -132,7 +166,21 @@
     <button onclick="mostrarCapa('creditos')">Créditos</button>
   </div>
 
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <script src="script.js"></script>
+  <script>
+    // Inicialización básica del mapa (puedes mover esto a script.js)
+    document.addEventListener('DOMContentLoaded', function() {
+      const map = L.map('map').setView([-34.9, -56.2], 7); // Coordenadas aproximadas de Uruguay
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+    });
+
+    function mostrarCapa(capa) {
+      console.log(`Mostrando capa: ${capa}`);
+      // Implementación básica - deberás completar esta función según tus necesidades
+    }
+  </script>
 </body>
 </html>
