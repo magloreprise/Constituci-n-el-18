@@ -3,29 +3,136 @@
 <head>
   <meta charset="UTF-8">
   <title>Mapa Constitución 1918</title>
+  
+  <!-- Fuente Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background-color: #f0f2f5;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    .container {
+      display: flex;
+      width: 100%;
+    }
+
+    .vertical-timeline {
+      width: 250px;
+      padding: 20px;
+      background-color: #f5f5f5;
+      border-right: 1px solid #ddd;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      border-radius: 8px 0 0 8px;
+    }
+
+    .vertical-timeline h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .vertical-timeline ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      position: relative;
+    }
+
+    .vertical-timeline ul::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: #4CAF50;
+      z-index: 0;
+    }
+
+    .vertical-timeline li {
+      padding: 10px 15px;
+      margin-bottom: 15px;
+      background-color: #fff;
+      border-left: 4px solid #4CAF50;
+      position: relative;
+      border-radius: 4px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      z-index: 1;
+    }
+
+    .vertical-timeline li strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    #map {
+      flex: 1;
+      height: 600px;
+      border-radius: 0 8px 8px 0;
+      box-shadow: inset 0 0 3px rgba(0,0,0,0.1);
+    }
+
+    #controls {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    #controls button {
+      margin: 5px;
+      padding: 8px 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    #controls button:hover {
+      background-color: #388e3c;
+      transform: scale(1.05);
+    }
+  </style>
 </head>
 <body>
   <h1>Mapa Interactivo: Constitución de Uruguay (1918)</h1>
-  <div id="map"></div>
+  
+  <div class="container">
+    <div class="vertical-timeline">
+      <h2>Línea de tiempo (1870-1918)</h2>
+      <ul>
+        <li><strong>1830</strong>Primer constitución</li>
+        <li><strong>1830-1904</strong>Guerras Civiles</li>
+        <li><strong>1903-1915</strong>Reformas de Batlle</li>
+        <li><strong>1917</strong>Plebiscito</li>
+        <li><strong>1918</strong>Aprobación en el Parlamento de la nueva constitución</li>
+      </ul>
+    </div>
+    
+    <div id="map"></div>
+  </div>
+
+  <div id="controls">
+    <button onclick="mostrarCapa('antecedentes')">Antecedentes</button>
+    <button onclick="mostrarCapa('constitucion')">Constitución 1918</button>
+    <button onclick="mostrarCapa('repercusiones')">Repercusiones</button>
+    <button onclick="mostrarCapa('creditos')">Créditos</button>
+  </div>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
-
-  <div class="timeline">
-    <h2>Línea de tiempo (1918)</h2>
-    <ul>
-        <li><strong>Marzo 1918</strong>: Aprobación en el Parlamento.</li>
-        <li><strong>Noviembre 1918</strong>: Entra en vigor.</li>
-    </ul>
-</div>
-
-<div id="controls">
-    <button onclick="mostrarCapa('antecedentes')">Antecedentes</button>
-    <button onclick="mostrarCapa('constitucion')">Constitución 1918</button>
-    <button onclick="mostrarCapa('repercusiones')">Repercusiones</button>
-    <button onclick="mostrarCapa('creditos')">Créditos</button> 
-</div>
