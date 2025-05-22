@@ -192,3 +192,8 @@ audio {
   max-height: 150px;
 }
 
+.leaflet-popup-content {
+  max-height: 150px;
+  overflow-y: auto;
+  font-size: 0.9rem;
+}
