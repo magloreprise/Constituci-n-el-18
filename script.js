@@ -288,3 +288,24 @@ document.querySelectorAll('.vertical-timeline').forEach(el => {
 map.on('click', function() {
   map.closePopup();
 });
+
+// ===== MEJORAS PARA MÓVILES =====
+if (/Mobi|Android/i.test(navigator.userAgent)) {
+  // Desactiva el zoom táctil para mejor rendimiento
+  map.touchZoom.disable();
+  
+  // Ajusta popups para móviles
+  L.Popup.prototype.options.closeOnClick = false;
+  
+  // Permite scroll en popups
+  document.addEventListener('touchmove', function(e) {
+    if (e.target.closest('.leaflet-popup-content')) {
+      e.stopPropagation();
+    }
+  }, { passive: true });
+}
+
+// Cierra popups al hacer clic en el mapa (útil para móviles)
+map.on('click', function() {
+  map.closePopup();
+});
