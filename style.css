@@ -106,11 +106,11 @@ audio {
 
 /* Añade esto al final de tu archivo style.css o en la sección <style> */
 
-@media (max-width: 768px) {
+@media (max-width: 700px) {
   .vertical-timeline {
     width: 100%;
     height: auto;
-    max-height: 200px;
+    max-height: 180px;
     overflow-x: hidden;
     overflow-y: auto;
     white-space: normal;
@@ -152,5 +152,43 @@ audio {
     margin-bottom: 5px;
   }
 }
+/* === Fix para popups del mapa en móvil === */
+.leaflet-popup-content {
+  max-width: 90vw;
+  font-size: 0.9rem;
+  overflow-wrap: break-word;
+}
 
+.leaflet-popup-content-wrapper {
+  padding: 10px;
+}
+
+/* Evita que el popup bloquee el scroll del mapa */
+.leaflet-container a,
+.leaflet-container .leaflet-popup-content {
+  touch-action: none;
+}
+
+/* Aumenta usabilidad en móviles */
+@media (max-width: 700px) {
+  .leaflet-popup-content {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  .leaflet-popup-tip-container {
+    display: none; /* opcional: oculta la punta del popup */
+  }
+}
+
+/* Permite que los gestos táctiles atraviesen el popup */
+.leaflet-popup-content-wrapper {
+  pointer-events: none;
+}
+
+.leaflet-popup-content {
+  pointer-events: auto; /* Para permitir copiar texto o interactuar si hay links */
+  overflow-y: auto;
+  max-height: 150px;
+}
 
