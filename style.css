@@ -197,3 +197,56 @@ audio {
   overflow-y: auto;
   font-size: 0.9rem;
 }
+
+/* Añade esto a tu style.css */
+.leaflet-popup-content-wrapper {
+  overflow: hidden !important;
+  border-radius: 8px !important;
+}
+
+.leaflet-popup-content {
+  max-height: 60vh !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important; /* Scroll suave en iOS */
+  padding-right: 10px !important; /* Espacio para la barra de scroll */
+}
+
+/* Estilo para la barra de scroll */
+.leaflet-popup-content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.leaflet-popup-content::-webkit-scrollbar-thumb {
+  background: #4CAF50;
+  border-radius: 3px;
+}
+
+/* ===== OPTIMIZACIÓN MÓVIL ===== */
+@media (max-width: 768px) {
+  /* Ajusta el contenedor principal */
+  .map-container {
+    flex-direction: column !important;
+  }
+  
+  /* Mejora los popups */
+  .leaflet-popup-content-wrapper {
+    max-width: 90vw !important;
+  }
+  
+  /* Botones más grandes */
+  #controls button {
+    min-width: 140px !important;
+    padding: 12px !important;
+  }
+  
+  /* Texto más legible en popups */
+  .leaflet-popup-content h3 {
+    font-size: 1.1rem !important;
+  }
+  
+  /* Imágenes responsivas */
+  .leaflet-popup-content img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+}
