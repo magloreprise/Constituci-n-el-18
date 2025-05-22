@@ -64,3 +64,93 @@ audio {
     margin: 10px auto;
     display: block;
 }
+
+/* Añade al final del archivo */
+.vertical-timeline {
+  width: 280px; /* Un poco más ancho */
+  padding: 15px;
+  background: #f5f5f5;
+  overflow-y: auto;
+  border-right: 1px solid #ddd;
+}
+
+.timeline-item {
+  margin-bottom: 15px;
+  padding: 12px;
+  background: white;
+  border-left: 4px solid #4CAF50;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.timeline-item:hover {
+  transform: translateX(5px);
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+}
+
+.timeline-content {
+  display: none;
+  padding: 12px;
+  margin-top: 10px;
+  background: #f9f9f9;
+  border-radius: 4px;
+  border-left: 2px solid #3498db;
+}
+
+.timeline-icon {
+  margin-right: 8px;
+  font-size: 1.2em;
+  vertical-align: middle;
+}
+
+/* Añade esto al final de tu archivo style.css o en la sección <style> */
+
+@media (max-width: 768px) {
+  .vertical-timeline {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    white-space: normal;
+    display: block;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+  }
+
+  .vertical-timeline ul {
+    display: block;
+    padding: 0;
+    margin: 0;
+  }
+
+  .vertical-timeline li {
+    display: block;
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
+    white-space: normal;
+    box-sizing: border-box;
+  }
+
+  .timeline-item {
+    padding: 12px 15px;
+  }
+
+  .timeline-content {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .timeline-content ul {
+    padding-left: 15px;
+  }
+
+  .timeline-content li {
+    margin-bottom: 5px;
+  }
+}
+
+
