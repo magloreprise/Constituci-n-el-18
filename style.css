@@ -6,6 +6,49 @@ body {
     padding: 20px;
 }
 
+/* Estilos para el mapa móvil */
+.mobile-map {
+  display: none;
+}
+.map-image-container {
+  position: relative;
+  max-width: 100%;
+}
+.map-img {
+  width: 100%;
+  display: block;
+}
+.map-point {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: red;
+  border: 2px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.popup {
+  position: absolute;
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  display: none;
+  max-width: 200px;
+  font-size: 14px;
+  z-index: 10;
+}
+@media (max-width: 768px) {
+  .map-container, .vertical-timeline, #controls {
+    display: none;
+  }
+  .mobile-map {
+    display: block;
+    padding: 10px;
+  }
+}
+
+
 h1 {
     color: #2c3e50;
     position: sticky;
@@ -225,4 +268,49 @@ audio {
 .leaflet-popup-content::-webkit-scrollbar-thumb {
     background: #4CAF50;
     border-radius: 3px;
+}
+
+.vertical-timeline {
+  margin: 20px auto;
+  max-width: 800px;
+  padding: 10px;
+}
+
+.timeline-list {
+  list-style: none;
+  padding: 0;
+}
+
+.timeline-item {
+  background: #f8f8f8;
+  margin-bottom: 15px;
+  border-left: 4px solid #3498db;
+  padding: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.timeline-item:hover {
+  background: #eef6fb;
+}
+
+.timeline-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.timeline-icon {
+  font-size: 1.5rem;
+}
+
+.timeline-content {
+  display: none;
+  margin-top: 10px;
+  font-size: 0.95rem;
+}
+
+.timeline-item.active .timeline-content {
+  display: block;
 }
