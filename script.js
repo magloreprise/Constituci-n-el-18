@@ -29,7 +29,7 @@ capas.creditos.addLayer(
 capas.creditos.addLayer(
     L.popup({ autoClose: false, closeOnClick: false })
     .setLatLng([-34.9, -56.1])
-    .setContent("<b>© Proyecto Historia 2024</b>")
+    .setContent("<b>© Proyecto Historia 2025</b>")
     .openOn(map)
 );
 
@@ -274,4 +274,17 @@ El Estado intervino más en la economía (ferrocarriles, energía, etc.).</li>
     `)
 );
 
+// Añade esto en tu script.js
+document.querySelectorAll('.vertical-timeline').forEach(el => {
+  el.addEventListener('touchstart', function() {
+    this.style.overflowY = 'hidden';
+  });
+  
+  el.addEventListener('touchend', function() {
+    this.style.overflowY = 'auto';
+  });
+});
 
+map.on('click', function() {
+  map.closePopup();
+});
