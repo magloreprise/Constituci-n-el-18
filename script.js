@@ -309,3 +309,23 @@ if (/Mobi|Android/i.test(navigator.userAgent)) {
 map.on('click', function() {
   map.closePopup();
 });
+
+// Fuerza redimensionamiento de popups en móviles
+map.on('popupopen', function() {
+  if (window.innerWidth <= 768) {
+    setTimeout(() => {
+      const popup = document.querySelector('.leaflet-popup-content');
+      if (popup) {
+        popup.style.height = 'auto';
+        popup.style.maxHeight = '60vh';
+      }
+    }, 100);
+  }
+});
+
+// Permite scroll táctil en popups
+document.addEventListener('touchmove', function(e) {
+  if (e.target.closest('.leaflet-popup-content')) {
+    e.stopPropagation();
+  }
+}, { passive: true });
