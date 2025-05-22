@@ -1,5 +1,12 @@
-// Inicialización del mapa
 var map = L.map('map').setView([-32.5, -56], 6.2);
+
+map.on('popupopen', function () {
+    map.dragging.enable();
+    map.touchZoom.enable();
+    map.scrollWheelZoom.enable();  // <- corregido aquí
+    map.boxZoom.enable();
+    map.keyboard.enable();
+});
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap'
