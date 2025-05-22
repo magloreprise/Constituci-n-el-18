@@ -1,9 +1,11 @@
+// Inicialización del mapa
 var map = L.map('map').setView([-32.5, -56], 6.2);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap'
 }).addTo(map);
 
+// Definición de las capas
 const capas = {
     antecedentes: L.layerGroup(),
     constitucion: L.layerGroup(),
@@ -11,11 +13,12 @@ const capas = {
     creditos: L.layerGroup()  
 };
 
+// Capa de créditos
 capas.creditos.addLayer(
     L.marker([-33.0, -58.5], {
         opacity: 1.0,
         icon: L.icon({
-            iconUrl: "https://cdn-icons-png.flaticon.com/512/727/727239.png", // 🎤 Ícono de micrófono
+            iconUrl: "https://cdn-icons-png.flaticon.com/512/727/727239.png", // Ícono de micrófono
             iconSize: [50, 50]
         })
     }).bindPopup(`
@@ -33,22 +36,24 @@ capas.creditos.addLayer(
     .openOn(map)
 );
 
+// Función única para mostrar capas
 function mostrarCapa(capaSeleccionada) {
+    // Eliminar todas las capas
     Object.keys(capas).forEach(capa => {
         map.removeLayer(capas[capa]);
     });
-    
+    // Agregar la capa seleccionada
     capas[capaSeleccionada].addTo(map);
+    // Se puede agregar la capa de créditos si se desea que siempre se muestren
     capas.creditos.addTo(map);
+    
+    // Si la capa es 'creditos', centramos el mapa en una posición particular (por ejemplo)
+    if (capaSeleccionada === 'creditos') {
+        map.setView([-33.0, -58.5], 10);
+    }
 }
 
-function mostrarCapa(capaSeleccionada) {
-    Object.keys(capas).forEach(capa => {
-        map.removeLayer(capas[capa]);
-    });
-    capas[capaSeleccionada].addTo(map);
-}
-
+// Agregar puntos a la capa "antecedentes"
 capas.antecedentes.addLayer(
     L.marker([-32.3833, -54.1833], {
         icon: L.icon({
@@ -126,6 +131,7 @@ capas.antecedentes.addLayer(
     `)
 );
 
+// Agregar puntos a la capa "constitucion"
 capas.constitucion.addLayer(
     L.marker([-34.9066, -56.1856], {  // Palacio Legislativo
         icon: L.icon({
@@ -159,7 +165,7 @@ capas.constitucion.addLayer(
             <h3 style="color: #2c3e50; margin-top: 0;">Impacto en el Interior (1918)</h3>
             <p><b> Paysandú</b></p>
             <hr style="border-top: 1px solid #eee; margin: 10px 0;">
-            <p><b>📜 Hecho:</b> Efectos Semi-Inmediatos de la constitucion:</p>
+            <p><b>📜 Hecho:</b> Efectos Semi-Inmediatos de la constitución:</p>
             <ul style="padding-left: 15px; margin: 5px 0;">
                 <li><strong>Mayor representación política</strong> para departamentos como Paysandú, Salto y Rivera.</li>
                 <li><strong>Descontento en sectores conservadores</strong> por la secularización.</li>
@@ -190,18 +196,19 @@ capas.constitucion.addLayer(
     `)
 );
 
+// Agregar puntos a la capa "repercusiones"
 capas.repercusiones.addLayer(
-    L.marker([-32.30, -58.07], {  // paysandu
+    L.marker([-32.30, -58.07], {  // Paysandú
         icon: L.icon({
             iconUrl: "https://cdn-icons-png.flaticon.com/512/3281/3281306.png", // Ícono de frontera
             iconSize: [30, 30]
         })
     }).bindPopup(`
         <div style="font-family: Arial; max-width: 300px;">
-            <h3 style="color:rgb(6, 6, 6); margin-top: 0;">Memjora de estilo de vida de los trabajadores</h3>
+            <h3 style="color:rgb(6, 6, 6); margin-top: 0;">Mejora de estilo de vida de los trabajadores</h3>
             <p><b> Paysandú</b></p>
             <hr style="border-top: 1px solid #eee; margin: 10px 0;">
-            <p><b>📜 Hecho:</b>Nuevas normas laborales</p>
+            <p><b>📜 Hecho:</b> Nuevas normas laborales</p>
             <ul style="padding-left: 15px; margin: 5px 0;">
                 <li><strong>Las nuevas leyes laborales empezaron a proteger a los trabajadores del interior.
 La jornada de 8 horas mejoró las condiciones de vida de obreros rurales e industriales.</li>
@@ -212,7 +219,7 @@ La jornada de 8 horas mejoró las condiciones de vida de obreros rurales e indus
 );
 
 capas.repercusiones.addLayer(
-    L.marker([-34.10, -56.21], {  // paysandu
+    L.marker([-34.10, -56.21], {  // Paysandú
         icon: L.icon({
             iconUrl: "https://cdn-icons-png.flaticon.com/512/3135/3135715.png", // Ícono de frontera
             iconSize: [30, 30]
@@ -222,7 +229,7 @@ capas.repercusiones.addLayer(
             <h3 style="color:rgb(0, 0, 0); margin-top: 0;">Reformas Educativas</h3>
             <p><b> Paysandú</b></p>
             <hr style="border-top: 1px solid #eee; margin: 10px 0;">
-            <p><b>📜 Hecho:</b>nuevo sistema educativo</p>
+            <p><b>📜 Hecho:</b> Nuevo sistema educativo</p>
             <ul style="padding-left: 15px; margin: 5px 0;">
                 <li><strong>Se consolidó la educación laica, gratuita y obligatoria.
 La separación Iglesia-Estado tuvo un fuerte impacto en escuelas y la vida cotidiana.</li>
@@ -233,7 +240,7 @@ La separación Iglesia-Estado tuvo un fuerte impacto en escuelas y la vida cotid
 );
 
 capas.repercusiones.addLayer(
-    L.marker([-33.22, -54.38], {  // paysandu
+    L.marker([-33.22, -54.38], {  // Paysandú
         icon: L.icon({
             iconUrl: "https://cdn-icons-png.flaticon.com/512/2033/2033951.png", // Ícono de frontera
             iconSize: [30, 30]
@@ -243,7 +250,7 @@ capas.repercusiones.addLayer(
             <h3 style="color:rgb(0, 0, 0); margin-top: 0;">Sectores Conservadores</h3>
             <p><b> Paysandú</b></p>
             <hr style="border-top: 1px solid #eee; margin: 10px 0;">
-            <p><b>📜 Hecho:</b>Sectores que se negaban a las reformas</p>
+            <p><b>📜 Hecho:</b> Sectores que se negaban a las reformas</p>
             <ul style="padding-left: 15px; margin: 5px 0;">
                 <li><strong>Regiones donde hubo resistencia conservadora a los cambios de Batlle.
 La influencia de la Iglesia y sectores blancos era más fuerte.</li>
@@ -254,17 +261,17 @@ La influencia de la Iglesia y sectores blancos era más fuerte.</li>
 );
 
 capas.repercusiones.addLayer(
-    L.marker([-31.72, -55.97], {  // tacuarembo
+    L.marker([-31.72, -55.97], {  // Tacuarembó
         icon: L.icon({
             iconUrl: "https://cdn-icons-png.flaticon.com/512/2884/2884569.png", // Ícono de frontera
             iconSize: [30, 30]
         })
     }).bindPopup(`
         <div style="font-family: Arial; max-width: 300px;">
-            <h3 style="color:rgb(0, 0, 0); margin-top: 0;">Industrializacion y economia</h3>
+            <h3 style="color:rgb(0, 0, 0); margin-top: 0;">Industrialización y economía</h3>
             <p><b> Tacuarembó</b></p>
             <hr style="border-top: 1px solid #eee; margin: 10px 0;">
-            <p><b>📜 Hecho:</b>Industria y economia</p>
+            <p><b>📜 Hecho:</b> Industria y economía</p>
             <ul style="padding-left: 15px; margin: 5px 0;">
                 <li><strong>Se impulsó la industrialización y la modernización del país.
 El Estado intervino más en la economía (ferrocarriles, energía, etc.).</li>
@@ -274,7 +281,7 @@ El Estado intervino más en la economía (ferrocarriles, energía, etc.).</li>
     `)
 );
 
-// Añade esto en tu script.js
+// Listeners para la timeline en dispositivos táctiles
 document.querySelectorAll('.vertical-timeline').forEach(el => {
   el.addEventListener('touchstart', function() {
     this.style.overflowY = 'hidden';
@@ -285,19 +292,20 @@ document.querySelectorAll('.vertical-timeline').forEach(el => {
   });
 });
 
+// Cierra popups al hacer clic en el mapa
 map.on('click', function() {
   map.closePopup();
 });
 
 // ===== MEJORAS PARA MÓVILES =====
 if (/Mobi|Android/i.test(navigator.userAgent)) {
-  // Desactiva el zoom táctil para mejor rendimiento
+  // Desactiva el zoom táctil para mejorar rendimiento
   map.touchZoom.disable();
   
-  // Ajusta popups para móviles
+  // Ajusta popups para que no se cierren al tocarlos
   L.Popup.prototype.options.closeOnClick = false;
   
-  // Permite scroll en popups
+  // Permite scroll en popups evitando que el gesto táctil se propague al mapa
   document.addEventListener('touchmove', function(e) {
     if (e.target.closest('.leaflet-popup-content')) {
       e.stopPropagation();
@@ -305,12 +313,7 @@ if (/Mobi|Android/i.test(navigator.userAgent)) {
   }, { passive: true });
 }
 
-// Cierra popups al hacer clic en el mapa (útil para móviles)
-map.on('click', function() {
-  map.closePopup();
-});
-
-// Fuerza redimensionamiento de popups en móviles
+// Adicional: Forzar redimensionamiento de popups en móviles cuando se abren
 map.on('popupopen', function() {
   if (window.innerWidth <= 768) {
     setTimeout(() => {
@@ -323,7 +326,7 @@ map.on('popupopen', function() {
   }
 });
 
-// Permite scroll táctil en popups
+// Permitir scroll táctil en popups (evita propagación del gesto)
 document.addEventListener('touchmove', function(e) {
   if (e.target.closest('.leaflet-popup-content')) {
     e.stopPropagation();
