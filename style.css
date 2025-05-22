@@ -107,16 +107,32 @@ audio {
     vertical-align: middle;
 }
 
-/* Responsive Timeline */
-@media (max-width: 700px) {
+/* Mobile-first: Línea de tiempo encima del mapa */
+@media (max-width: 768px) {
+    .map-container {
+        display: flex;
+        flex-direction: column;
+    }
+
     .vertical-timeline {
+        order: 1;
         width: 100%;
         max-height: 180px;
         overflow-x: hidden;
         overflow-y: auto;
         border-right: none;
         border-bottom: 1px solid #ddd;
+        background: #f9f9f9;
+        z-index: 10;
+        position: relative;
         padding: 10px;
+    }
+
+    #map {
+        order: 2;
+        width: 100% !important;
+        height: 400px !important;
+        margin: 10px 0;
     }
 
     .vertical-timeline ul,
@@ -142,9 +158,39 @@ audio {
     .timeline-content li {
         margin-bottom: 5px;
     }
+
+    h1 {
+        font-size: 1.3rem;
+        padding: 10px;
+    }
+
+    #controls button {
+        min-width: 140px !important;
+        padding: 12px !important;
+        font-size: 1.05rem !important;
+    }
+
+    .leaflet-popup-content-wrapper {
+        max-width: 90vw !important;
+        max-height: 50vh !important;
+        overflow-y: auto !important;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .leaflet-popup-content {
+        font-size: 0.85rem;
+        line-height: 1.4;
+        max-height: 45vh;
+        overflow-y: auto;
+    }
+
+    .leaflet-popup-tip-container {
+        display: none;
+    }
 }
 
-/* Leaflet popups - responsive */
+/* Leaflet popups */
 .leaflet-popup-content {
     max-width: 90vw;
     font-size: 0.9rem;
@@ -159,7 +205,7 @@ audio {
     padding: 10px;
     border-radius: 8px !important;
     overflow: hidden !important;
-    pointer-events: none;
+    pointer-events: auto !important; /* <- se corrigió esto */
 }
 
 .leaflet-popup-content {
@@ -168,42 +214,7 @@ audio {
 
 .leaflet-container a,
 .leaflet-container .leaflet-popup-content {
-    touch-action: none;
-}
-
-/* Mobile improvements */
-@media (max-width: 768px) {
-    .map-container {
-        flex-direction: column !important;
-    }
-
-    .leaflet-popup-content-wrapper {
-        max-width: 90vw !important;
-    }
-
-    .leaflet-popup-content h3 {
-        font-size: 1.1rem !important;
-    }
-
-    .leaflet-popup-content img {
-        max-width: 100% !important;
-        height: auto !important;
-    }
-
-    #controls button {
-        min-width: 140px !important;
-        padding: 12px !important;
-        font-size: 1.05rem !important;
-    }
-
-    .leaflet-popup-tip-container {
-        display: none;
-    }
-
-    h1 {
-        font-size: 1.3rem;
-        padding: 10px;
-    }
+    touch-action: manipulation; /* mejora el scroll sin bloquear */
 }
 
 /* Scrollbar */
