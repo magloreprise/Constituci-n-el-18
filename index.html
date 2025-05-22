@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Mapa Constitución Uruguay 1918</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
   <style>
     body {
@@ -28,20 +28,30 @@
     .main-container {
       display: flex;
       flex-direction: column;
-      height: calc(100vh - 56px);
+      height: auto;
     }
 
     .map-container {
       display: flex;
       flex: 1;
+      position: relative;
     }
 
-    .vertical-timeline {
-      width: 250px;
-      padding: 15px;
-      background: #f5f5f5;
-      overflow-y: auto;
-      border-right: 1px solid #ddd;
+    .solo-pc {
+      display: block;
+    }
+
+    .solo-movil {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .solo-pc {
+        display: none !important;
+      }
+      .solo-movil {
+        display: block !important;
+      }
     }
 
     #map {
@@ -73,42 +83,20 @@
       font-size: 0.9rem;
     }
 
-    /* Estilos para móviles */
-    @media (max-width: 768px) {
-      .map-container {
-        flex-direction: column;
-      }
-
-      .vertical-timeline {
-        width: auto;
-        height: 150px;
-        overflow-x: auto;
-        white-space: nowrap;
-        display: flex;
-        border-right: none;
-        border-bottom: 1px solid #ddd;
-      }
-
-      .vertical-timeline ul {
-        display: flex;
-        padding: 0;
-        margin: 0;
-      }
-
-      .vertical-timeline li {
-        display: inline-block;
-        width: 200px;
-        margin-right: 10px;
-        white-space: normal;
-      }
-
-      #map {
-        height: 60vh;
-      }
+    /* Línea de tiempo */
+    .vertical-timeline {
+      padding: 15px;
+      background: #f5f5f5;
+      border-top: 1px solid #ddd;
     }
 
-    /* Estilos de la línea de tiempo */
-    .timeline-item {
+    .vertical-timeline ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .vertical-timeline li.timeline-item {
       margin-bottom: 15px;
       padding: 10px;
       background: white;
@@ -136,12 +124,21 @@
       to { opacity: 1; }
     }
 
-    .timeline-icon {
-      margin-right: 8px;
-      font-size: 1.2em;
+    @media (max-width: 768px) {
+      .vertical-timeline ul {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 10px;
+      }
+
+      .vertical-timeline li.timeline-item {
+        min-width: 200px;
+        flex-shrink: 0;
+        white-space: normal;
+      }
     }
 
-    /* Fix para popups móviles */
     .leaflet-popup-content {
       max-width: 85vw !important;
       max-height: 60vh !important;
@@ -167,119 +164,130 @@
 
   <div class="main-container">
     <div class="map-container">
-      <!-- Línea de tiempo -->
-      <div class="vertical-timeline">
-        <h3 style="margin-top: 0; color: #2c3e50;">Línea de tiempo</h3>
-        <ul style="list-style: none; padding: 0; margin: 0;">
-          <!-- Ítem 1 -->
-          <li class="timeline-item" onclick="toggleTimelineItem(this)">
-            <div>
-              <span class="timeline-icon">⚖</span>
-              <strong>1830</strong>
-              <p style="margin: 5px 0 0; font-size: 0.9rem;">Constitución de 1830</p>
-            </div>
-            <div class="timeline-content">
-              <p><strong>La Constitución de 1830</strong> (primera del país)</p>
-              <ul style="margin: 5px 0 0; padding-left: 20px;">
-                <li>Fue la primera constitución uruguaya, muy influenciada por modelos europeos y norteamericanos.</li>
-                <li>Establecía un régimen presidencialista fuerte.</li>
-                <li>No contemplaba derechos sociales ni laborales.</li>
-                <li>Funcionó en un contexto de inestabilidad política, guerras civiles y enfrentamientos entre blancos y colorados.</li>
-              </ul>
-            </div>
-          </li>
+      <!-- Mapa interactivo (solo en PC) -->
+      <div id="map" class="solo-pc"></div>
 
-          <!-- Ítem 2 -->
-          <li class="timeline-item" onclick="toggleTimelineItem(this)">
-            <div>
-              <span class="timeline-icon">🩸</span>
-              <strong>1830-1904</strong>
-              <p style="margin: 5px 0 0; font-size: 0.9rem;">Inestabilidad política</p>
-            </div>
-            <div class="timeline-content">
-              <p><strong>Inestabilidad política y guerras civiles</strong></p>
-              <ul style="margin: 5px 0 0; padding-left: 20px;">
-                <li>Durante el siglo XIX, Uruguay vivió muchas guerras internas, especialmente entre el Partido Colorado y el Partido Nacional (Blanco).</li>
-                <li>Hubo golpes de Estado, caudillismo, y el país no lograba una paz duradera ni estabilidad.</li>
-              </ul>
-            </div>
-          </li>
-
-          <!-- Ítem 3 -->
-          <li class="timeline-item" onclick="toggleTimelineItem(this)">
-            <div>
-              <span class="timeline-icon">🗳</span>
-              <strong>Principios del siglo XX</strong>
-              <p style="margin: 5px 0 0; font-size: 0.9rem;">Reformas de Batlle y Ordóñez</p>
-            </div>
-            <div class="timeline-content">
-              <p><strong>Reformas de José Batlle y Ordóñez</strong></p>
-              <ul style="margin: 5px 0 0; padding-left: 20px;">
-                <li>Batlle fue presidente en dos periodos (1903-1907 y 1911-1915).</li>
-                <li>Impulsó un modelo más moderno, democrático y social:</li>
-                <ul>
-                  <li>Jornada laboral de 8 horas</li>
-                  <li>Derecho de huelga</li>
-                  <li>Protección al trabajador</li>
-                  <li>Educación laica, gratuita y obligatoria</li>
-                </ul>
-                <li>Criticaba el presidencialismo fuerte y quería dividir el poder ejecutivo para evitar abusos.</li>
-              </ul>
-            </div>
-          </li>
-
-          <!-- Ítem 4 -->
-          <li class="timeline-item" onclick="toggleTimelineItem(this)">
-            <div>
-              <span class="timeline-icon">🧠</span>
-              <strong>Principios del siglo XX</strong>
-              <p style="margin: 5px 0 0; font-size: 0.9rem;">El batllismo y el reformismo</p>
-            </div>
-            <div class="timeline-content">
-              <p><strong>Ideas nuevas: el batllismo y el reformismo</strong></p>
-              <ul style="margin: 5px 0 0; padding-left: 20px;">
-                <li>El batllismo trajo ideas progresistas, como:</li>
-                <ul>
-                  <li>Participación del Estado en la economía (estatismo)</li>
-                  <li>Protección de las clases trabajadoras</li>
-                  <li>Separación Iglesia-Estado</li>
-                </ul>
-                <li>Estas ideas ganaron fuerza en la sociedad, sobre todo en Montevideo.</li>
-              </ul>
-            </div>
-          </li>
-
-          <!-- Ítem 5 -->
-          <li class="timeline-item" onclick="toggleTimelineItem(this)">
-            <div>
-              <span class="timeline-icon">📜</span>
-              <strong>1916-1918</strong>
-              <p style="margin: 5px 0 0; font-size: 0.9rem;">Reforma constitucional</p>
-            </div>
-            <div class="timeline-content">
-              <p><strong>Intentos fallidos de reforma constitucional</strong></p>
-              <ul style="margin: 5px 0 0; padding-left: 20px;">
-                <li>Ya desde 1916 se buscaba cambiar la Constitución, pero no se lograba un acuerdo.</li>
-                <li>Finalmente, en 1917 se convocó un plebiscito, y la nueva Constitución fue aprobada.</li>
-                <li>Entró en vigencia en 1918.</li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Mapa -->
-      <div id="map"></div>
+      <!-- Imagen del mapa (solo en móvil) -->
+      <img src="mapa-uruguay.jpg" alt="Mapa Uruguay" class="solo-movil" style="width: 100%; height: auto;">
     </div>
 
-    <!-- Controles -->
     <div id="controls">
       <button onclick="mostrarCapa('antecedentes')">Antecedentes</button>
       <button onclick="mostrarCapa('constitucion')">Constitución 1918</button>
       <button onclick="mostrarCapa('repercusiones')">Repercusiones</button>
       <button onclick="mostrarCapa('creditos')">Créditos</button>
     </div>
-  </div>
+
+<!-- Línea de tiempo -->
+<div class="vertical-timeline">
+  <h3 style="margin-top: 0; color: #2c3e50;">Línea de tiempo</h3>
+  <ul class="timeline-list">
+    <!-- Ítem 1 -->
+    <li class="timeline-item" onclick="toggleTimelineItem(this)">
+      <div class="timeline-header">
+        <span class="timeline-icon">⚖</span>
+        <div>
+          <strong>1830</strong>
+          <p>Constitución de 1830</p>
+        </div>
+      </div>
+      <div class="timeline-content">
+        <p><strong>La Constitución de 1830</strong> (primera del país)</p>
+        <ul>
+          <li>Fue la primera constitución uruguaya, muy influenciada por modelos europeos y norteamericanos.</li>
+          <li>Establecía un régimen presidencialista fuerte.</li>
+          <li>No contemplaba derechos sociales ni laborales.</li>
+          <li>Funcionó en un contexto de inestabilidad política, guerras civiles y enfrentamientos entre blancos y colorados.</li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Ítem 2 -->
+    <li class="timeline-item" onclick="toggleTimelineItem(this)">
+      <div class="timeline-header">
+        <span class="timeline-icon">🩸</span>
+        <div>
+          <strong>1830-1904</strong>
+          <p>Inestabilidad política</p>
+        </div>
+      </div>
+      <div class="timeline-content">
+        <p><strong>Inestabilidad política y guerras civiles</strong></p>
+        <ul>
+          <li>Durante el siglo XIX, Uruguay vivió muchas guerras internas, especialmente entre el Partido Colorado y el Partido Nacional (Blanco).</li>
+          <li>Hubo golpes de Estado, caudillismo, y el país no lograba una paz duradera ni estabilidad.</li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Ítem 3 -->
+    <li class="timeline-item" onclick="toggleTimelineItem(this)">
+      <div class="timeline-header">
+        <span class="timeline-icon">🗳</span>
+        <div>
+          <strong>Principios del siglo XX</strong>
+          <p>Reformas de Batlle y Ordóñez</p>
+        </div>
+      </div>
+      <div class="timeline-content">
+        <p><strong>Reformas de José Batlle y Ordóñez</strong></p>
+        <ul>
+          <li>Batlle fue presidente en dos periodos (1903-1907 y 1911-1915).</li>
+          <li>Impulsó un modelo más moderno, democrático y social:</li>
+          <ul>
+            <li>Jornada laboral de 8 horas</li>
+            <li>Derecho de huelga</li>
+            <li>Protección al trabajador</li>
+            <li>Educación laica, gratuita y obligatoria</li>
+          </ul>
+          <li>Criticaba el presidencialismo fuerte y quería dividir el poder ejecutivo para evitar abusos.</li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Ítem 4 -->
+    <li class="timeline-item" onclick="toggleTimelineItem(this)">
+      <div class="timeline-header">
+        <span class="timeline-icon">🧠</span>
+        <div>
+          <strong>Principios del siglo XX</strong>
+          <p>El batllismo y el reformismo</p>
+        </div>
+      </div>
+      <div class="timeline-content">
+        <p><strong>Ideas nuevas: el batllismo y el reformismo</strong></p>
+        <ul>
+          <li>El batllismo trajo ideas progresistas, como:</li>
+          <ul>
+            <li>Participación del Estado en la economía (estatismo)</li>
+            <li>Protección de las clases trabajadoras</li>
+            <li>Separación Iglesia-Estado</li>
+          </ul>
+          <li>Estas ideas ganaron fuerza en la sociedad, sobre todo en Montevideo.</li>
+        </ul>
+      </div>
+    </li>
+
+    <!-- Ítem 5 -->
+    <li class="timeline-item" onclick="toggleTimelineItem(this)">
+      <div class="timeline-header">
+        <span class="timeline-icon">📜</span>
+        <div>
+          <strong>1916-1918</strong>
+          <p>Reforma constitucional</p>
+        </div>
+      </div>
+      <div class="timeline-content">
+        <p><strong>Intentos fallidos de reforma constitucional</strong></p>
+        <ul>
+          <li>Ya desde 1916 se buscaba cambiar la Constitución, pero no se lograba un acuerdo.</li>
+          <li>Finalmente, en 1917 se convocó un plebiscito, y la nueva Constitución fue aprobada.</li>
+          <li>Entró en vigencia en 1918.</li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+</div>
 
   <!-- Scripts -->
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
