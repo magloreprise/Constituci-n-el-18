@@ -340,3 +340,36 @@ document.addEventListener('touchmove', function(e) {
     e.stopPropagation();
   }
 }, { passive: true });
+
+function mostrarPopup(elemento, texto) {
+  const popup = document.getElementById('mobile-popup');
+  popup.style.display = 'block';
+  popup.style.top = (elemento.offsetTop + 30) + 'px';
+  popup.style.left = (elemento.offsetLeft + 30) + 'px';
+  popup.innerHTML = texto;
+}
+function toggleFullScreen() {
+  if (!document.fullscreenElement) {
+    // Intentar entrar en modo pantalla completa
+    if (map.getContainer().requestFullscreen) {
+      map.getContainer().requestFullscreen();
+    } else if (map.getContainer().mozRequestFullScreen) { /* Firefox */
+      map.getContainer().mozRequestFullScreen();
+    } else if (map.getContainer().webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+      map.getContainer().webkitRequestFullscreen();
+    } else if (map.getContainer().msRequestFullscreen) { /* IE/Edge */
+      map.getContainer().msRequestFullscreen();
+    }
+  } else {
+    // Salir del modo pantalla completa
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.mozCancelFullScreen) { /* Firefox */
+      document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) { /* Chrome, Safari & Opera */
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* IE/Edge */
+      document.msExitFullscreen();
+    }
+  }
+}
