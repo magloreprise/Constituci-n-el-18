@@ -32,7 +32,11 @@ capas.creditos.addLayer(
     }).bindPopup(`
         <b>Créditos</b><br>
         <u>Desarrollado por</u>:<br>
-        Sol Villagra, Agustina Sosa, Matias Olivera y Elías Miranda. Perdiste The Game, ahora a bailar<br>
+        Sol Villagra: busqueda y clasificacion de informacion
+        Agustina Sosa: busqueda y clasificacion de informacion
+        Matias Olivera: programacion de ambas paginas y diseño grafico
+        Elías Miranda: audios integrados
+        Perdiste The Game, ahora a bailar<br>
         Música de créditos finales: <a href="https://www.tiktok.com/@rickastleyofficial/video/7293155560671792416?is_from_webapp=1&sender_device=pc" target="_blank">Ver video</a>
     `)
 );
