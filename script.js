@@ -239,7 +239,7 @@ capas.repercusiones.addLayer(
     }).bindPopup(`
         <div style="font-family: Arial; max-width: 300px;">
             <h3 style="color:rgb(0, 0, 0); margin-top: 0;">Reformas Educativas</h3>
-            <p><b> Paysandú</b></p>
+            <p><b> Florida</b></p>
             <hr style="border-top: 1px solid #eee; margin: 10px 0;">
             <p><b>📜 Hecho:</b> Nuevo sistema educativo</p>
             <ul style="padding-left: 15px; margin: 5px 0;">
@@ -260,7 +260,7 @@ capas.repercusiones.addLayer(
     }).bindPopup(`
         <div style="font-family: Arial; max-width: 300px;">
             <h3 style="color:rgb(0, 0, 0); margin-top: 0;">Sectores Conservadores</h3>
-            <p><b> Paysandú</b></p>
+            <p><b> Treinta y tres</b></p>
             <hr style="border-top: 1px solid #eee; margin: 10px 0;">
             <p><b>📜 Hecho:</b> Sectores que se negaban a las reformas</p>
             <ul style="padding-left: 15px; margin: 5px 0;">
